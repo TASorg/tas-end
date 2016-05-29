@@ -15,7 +15,15 @@ exports.say = (req, res) => {
 	var flag = true;
 	var decoded = null;
 
-	data.content = req.body.content || (flag = false);
+	var type = req.body.type;
+
+	if(type == 'image') {
+		data.url = req.body.url;
+	} else {
+		data.content = req.body.content || (flag = false);
+	}
+
+	// data.content = req.body.content || (flag = false);
 	// @TODO 抽离成单元
 	jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
 		if(err) {
@@ -27,7 +35,7 @@ exports.say = (req, res) => {
 			data.uuid = uuid.v4();
 			data.u_id = decoded.u_id;
 			data.u_name = decoded.u_name;
-			data.type = 'word';
+			data.type = req.body.type || 'word';
 
 			if(!flag) {
 				res.json({sub: '填写正确的数据'});
