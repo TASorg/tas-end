@@ -82,3 +82,44 @@ exports.read = (req, res) => {
 		}
 	});
 };
+
+//up 
+exports.upVote = (req, res) => {
+	var data = {};
+	var flag = true;
+	var decoded = null;
+	var uuid = req.body.uuid;
+
+	// data.content = req.body.content || (flag = false);
+	// @TODO 抽离成单元
+	jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
+		if(err) {
+			res.json({
+				code: 401,
+				msg: 'token无效'
+			})
+		} else {
+			if(!flag) {
+				res.json({sub: '填写正确的数据'});
+			} else {//判断数据重复性
+				db.query('UPDATE item SET up = up + 1 WHERE uuid = ?', uuid, function(err, result) {
+					if(err) {
+						res.json({
+							code: 401,
+							param: {
+								msg:'读取数据库失败',
+								sub: err
+							}
+						});
+					} else {
+						res.json({
+							code: 200,
+							msg: '点赞成功',
+							data: result
+						});
+					}
+				});
+			}
+		}
+	});
+}

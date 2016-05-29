@@ -16,6 +16,7 @@ router.post('/user/login', cors(), user.login);
 // 写入一张表
 router.post('/say/item', cors(), item.say);
 router.get('/read/item', cors(), item.read);
+router.post('/upVote/item', cors(), item.upVote);
 
 router.post('/say/words', cors(), words.say);
 router.get('/read/words', cors(), words.read);
