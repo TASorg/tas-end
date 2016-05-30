@@ -17,6 +17,7 @@ router.post('/user/login', cors(), user.login);
 router.post('/say/item', cors(), item.say);
 router.get('/read/item', cors(), item.read);
 router.post('/upVote/item', cors(), item.upVote);
+router.post('/downVote/item', cors(), item.downVote);
 
 router.post('/say/words', cors(), words.say);
 router.get('/read/words', cors(), words.read);

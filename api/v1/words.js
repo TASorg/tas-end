@@ -3,7 +3,6 @@ import uuid from 'node-uuid'; //todo 自己写
 import sha1 from 'sha1';
 import jwt from 'jsonwebtoken';
 
-
 /**
  * 发表
  * @TODO 增加前置条件，判断是否登录

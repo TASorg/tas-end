@@ -2,7 +2,7 @@ import db from '../../common/db';
 import uuid from 'node-uuid'; //todo 自己写
 import sha1 from 'sha1';
 import jwt from 'jsonwebtoken';
-
+import array from 'lodash/array';
 
 /**
  * 发表
@@ -26,6 +26,7 @@ exports.say = (req, res) => {
 	// data.content = req.body.content || (flag = false);
 	// @TODO 抽离成单元
 	jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
+		console.log(decoded);
 		if(err) {
 			res.json({
 				code: 401,
@@ -64,6 +65,11 @@ exports.say = (req, res) => {
 
 // read
 exports.read = (req, res) => {
+	var u_id_arr = [];
+	var down_u_id_arr = [];
+	var i = 0;
+	var u_id = '11';
+
 	db.query('SELECT * FROM item LIMIT 30', function(err, result) {
 		if(err) {
 			res.json({
@@ -74,9 +80,31 @@ exports.read = (req, res) => {
 				}
 			});
 		} else {
+
+			for(i = 0; i < result.length; i++) {
+				(function(i) {
+					u_id_arr = result[i].up_id.split(',');
+					down_u_id_arr = result[i].down_id.split(',');
+					if(array.indexOf(u_id_arr, (u_id).toString()) == -1) { //不存在
+						result[i].isUp = 0;
+						// result[i].isDown = 0;
+					} else {
+						result[i].isUp = 1;
+					}
+
+					if(array.indexOf(down_u_id_arr, (u_id).toString()) == -1) { //不存在
+						result[i].isDown = 0;
+						// result[i].isDown = 0;
+					} else {
+						result[i].isDown = 1;
+					}
+
+				})(i)
+				
+			}
 			res.json({
 				code: 200,
-				msg: '读取word数据成功',
+				msg: '读取数据成功',
 				data: result
 			});
 		}
@@ -89,6 +117,10 @@ exports.upVote = (req, res) => {
 	var flag = true;
 	var decoded = null;
 	var uuid = req.body.uuid;
+	var u_id = null;
+	var old_u_id = null; //已点赞用户id
+	var u_id_arr = [];
+	var down_u_id_arr = [];
 
 	// data.content = req.body.content || (flag = false);
 	// @TODO 抽离成单元
@@ -99,10 +131,16 @@ exports.upVote = (req, res) => {
 				msg: 'token无效'
 			})
 		} else {
+			u_id = decoded.u_id;// + ',';
+
 			if(!flag) {
 				res.json({sub: '填写正确的数据'});
 			} else {//判断数据重复性
-				db.query('UPDATE item SET up = up + 1 WHERE uuid = ?', uuid, function(err, result) {
+				//@TODO 重要优化
+				// 做性能测试，尽量两次查询转化为一次查询
+				// 或者转化为redis模式存储点赞逻辑
+
+				db.query('SELECT up_id, down_id FROM item WHERE uuid = ?', uuid, function(err, result) {
 					if(err) {
 						res.json({
 							code: 401,
@@ -112,13 +150,137 @@ exports.upVote = (req, res) => {
 							}
 						});
 					} else {
-						res.json({
-							code: 200,
-							msg: '点赞成功',
-							data: result
-						});
+						u_id_arr = result[0].up_id.split(',');
+						down_u_id_arr = result[0].down_id.split(',');
+
+						console.log(u_id_arr);
+						if(array.indexOf(u_id_arr, (u_id).toString()) != -1) { //不存在
+							res.json({
+								code: 402,
+								param: {
+									msg: '已经点过赞'
+								}
+							})
+						} else if(array.indexOf(down_u_id_arr, (u_id).toString()) != -1) {
+							res.json({
+								code: 403,
+								param: {
+									msg: 'already down'
+								}
+							})
+						} else {
+							old_u_id = result[0].up_id + ',';
+							u_id = old_u_id + u_id;
+							db.query('UPDATE item SET up = up + 1, up_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
+								if(err) {
+									res.json({
+										code: 401,
+										param: {
+											msg:'读取数据库失败',
+											sub: err
+										}
+									});
+								} else {
+									res.json({
+										code: 200,
+										msg: '点赞成功',
+										data: result
+									});
+								}
+							});									
+						}
 					}
-				});
+				})
+			}
+		}
+	});
+}
+
+//
+exports.downVote = (req, res) => {
+	var data = {};
+	var flag = true;
+	var decoded = null;
+	var uuid = req.body.uuid;
+	var u_id = null;
+	var old_u_id = null; //已点赞用户id
+	var u_id_arr = [];
+	var down_u_id_arr = [];
+	// var down_u_id_arr = [];
+
+	// data.content = req.body.content || (flag = false);
+	// @TODO 抽离成单元
+	jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
+		if(err) {
+			res.json({
+				code: 401,
+				msg: 'token无效'
+			})
+		} else {
+
+			u_id = decoded.u_id;// + ',';
+
+			if(!flag) {
+				res.json({sub: '填写正确的数据'});
+			} else {//判断数据重复性
+				//@TODO 重要优化
+				// 做性能测试，尽量两次查询转化为一次查询
+				// 或者转化为redis模式存储点赞逻辑
+
+				db.query('SELECT up_id,down_id FROM item WHERE uuid = ?', uuid, function(err, result) {
+					if(err) {
+						res.json({
+							code: 401,
+							param: {
+								msg:'读取数据库失败',
+								sub: err
+							}
+						});
+					} else {
+						console.log(result);
+						console.log('--------------');
+						u_id_arr = result[0].up_id.split(',');
+						down_u_id_arr = result[0].down_id.split(',');
+						console.log(u_id);
+						console.log(u_id_arr);
+						console.log(array.indexOf(u_id_arr, u_id));
+						if(array.indexOf(u_id_arr, (u_id).toString()) != -1) { //存在
+							res.json({
+								code: 402,
+								param: {
+									msg: '已经点过赞'
+								}
+							})
+						} else if(array.indexOf(down_u_id_arr, (u_id).toString()) != -1) {
+							res.json({
+								code: 403,
+								param: {
+									msg: 'already down'
+								}
+							})
+						} else {
+							old_u_id = result[0].up_id + ',';
+							u_id = old_u_id + u_id;
+							db.query('UPDATE item SET down = down + 1, down_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
+								if(err) {
+									res.json({
+										code: 401,
+										param: {
+											msg:'读取数据库失败',
+											sub: err
+										}
+									});
+								} else {
+									res.json({
+										code: 200,
+										msg: 'say NO成功',
+										data: result
+									});
+								}
+							});									
+						}
+					}
+				})
 			}
 		}
 	});

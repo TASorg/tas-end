@@ -53,7 +53,7 @@ exports.login = (req, res) => {
 	var data = req.body;
 
 	// var token = randToken.generate(32);
-	var token = jwt.sign({user_id: 123}, 'keyvalue');
+	// var token = jwt.sign({user_id: 123}, 'keyvalue');
 
 	if(!data.username) {
 		res.send('请输入用户名');
@@ -71,7 +71,8 @@ exports.login = (req, res) => {
 					username: results[0].u_name
 				},
 				token: jwt.sign({
-					u_id: results[0].u_id,
+					uuid: results[0].u_id,
+					u_id: results[0].id,
 					u_name: results[0].u_name
 				},'keyvalue'),
 				code: 200
