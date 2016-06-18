@@ -1129,3 +1129,283 @@ INFO: loading config from /home/v/.config/ss/config.json
 2016-06-16 16:35:34 INFO     connecting lh3.googleusercontent.com:443 from 127.0.0.1:34072
 2016-06-16 16:35:34 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:34073
 2016-06-16 16:35:34 INFO     connecting www.gstatic.com:443 from 127.0.0.1:34076
+2016-06-16 16:36:47 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:36:47 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:36:47 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:36:47 INFO     connecting www.gstatic.com:443 from 127.0.0.1:34126
+2016-06-16 16:36:48 INFO     connecting mail-attachment.googleusercontent.com:443 from 127.0.0.1:34130
+2016-06-16 16:36:49 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:34137
+2016-06-16 16:36:49 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:34139
+2016-06-16 16:37:40 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:37:41 INFO     connecting clients2.google.com:443 from 127.0.0.1:34145
+2016-06-16 16:37:41 INFO     connecting clients2.google.com:443 from 127.0.0.1:34144
+2016-06-16 16:37:50 INFO     connecting clients5.google.com:443 from 127.0.0.1:34149
+2016-06-16 16:37:53 INFO     connecting clients5.google.com:443 from 127.0.0.1:34151
+2016-06-16 16:38:01 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:38:01 INFO     connecting plus.google.com:443 from 127.0.0.1:34157
+2016-06-16 16:38:01 INFO     connecting lh3.googleusercontent.com:443 from 127.0.0.1:34159
+2016-06-16 16:38:02 INFO     connecting plus.google.com:443 from 127.0.0.1:34163
+2016-06-16 16:38:05 INFO     connecting apis.google.com:443 from 127.0.0.1:34166
+2016-06-16 16:38:17 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:38:17 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:38:17 INFO     connecting accounts.google.com:443 from 127.0.0.1:34169
+2016-06-16 16:38:18 INFO     connecting clients6.google.com:443 from 127.0.0.1:34171
+2016-06-16 16:38:27 INFO     connecting csi.gstatic.com:443 from 127.0.0.1:34173
+2016-06-16 16:38:37 INFO     connecting www.pinterest.com:443 from 127.0.0.1:34176
+2016-06-16 16:40:01 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34181
+2016-06-16 16:43:38 WARNING  timed out: www.pinterest.com:443
+2016-06-16 16:44:11 INFO     connecting clients4.google.com:443 from 127.0.0.1:34192
+2016-06-16 16:45:05 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34198
+2016-06-16 16:48:13 INFO     connecting plus.google.com:443 from 127.0.0.1:34205
+2016-06-16 16:48:13 INFO     connecting plus.google.com:443 from 127.0.0.1:34207
+2016-06-16 16:48:49 ERROR    [Errno 104] Connection reset by peer
+2016-06-16 16:48:49 INFO     connecting clients4.google.com:443 from 127.0.0.1:34209
+2016-06-16 16:50:13 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34214
+2016-06-16 16:53:56 INFO     connecting www.pinterest.com:443 from 127.0.0.1:34221
+2016-06-16 16:54:45 INFO     connecting mail.google.com:443 from 127.0.0.1:34225
+2016-06-16 16:54:57 WARNING  timed out: plus.google.com:443
+2016-06-16 16:55:15 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34228
+2016-06-16 16:58:57 WARNING  timed out: www.pinterest.com:443
+2016-06-16 16:59:48 INFO     connecting mail.google.com:443 from 127.0.0.1:34237
+2016-06-16 17:00:17 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34240
+2016-06-16 17:04:54 INFO     connecting mail.google.com:443 from 127.0.0.1:34249
+2016-06-16 17:05:18 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34252
+2016-06-16 17:09:14 INFO     connecting www.pinterest.com:443 from 127.0.0.1:34261
+2016-06-16 17:10:03 INFO     connecting mail.google.com:443 from 127.0.0.1:34264
+2016-06-16 17:10:21 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:34267
+INFO: loading config from /home/v/.config/ss/config.json
+2016-06-17 09:47:17 INFO     loading libcrypto from libcrypto.so.1.0.0
+2016-06-17 09:47:17 INFO     starting local at 127.0.0.1:1080
+2016-06-17 09:47:20 INFO     connecting www.googleapis.com:443 from 127.0.0.1:35042
+2016-06-17 09:47:26 INFO     connecting clients4.google.com:443 from 127.0.0.1:35044
+2016-06-17 09:47:26 INFO     connecting accounts.google.com:443 from 127.0.0.1:35046
+2016-06-17 09:47:29 INFO     connecting clients4.google.com:443 from 127.0.0.1:35048
+2016-06-17 09:47:31 INFO     connecting accounts.google.com:443 from 127.0.0.1:35050
+2016-06-17 09:47:44 INFO     connecting clients2.google.com:443 from 127.0.0.1:35052
+2016-06-17 09:47:51 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35054
+2016-06-17 09:51:22 INFO     connecting www.google.com:443 from 127.0.0.1:35063
+2016-06-17 09:51:22 INFO     connecting www.google.com:443 from 127.0.0.1:35065
+2016-06-17 09:56:19 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35109
+2016-06-17 10:00:34 INFO     connecting clients4.google.com:443 from 127.0.0.1:35123
+2016-06-17 10:01:21 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35135
+2016-06-17 10:02:48 INFO     connecting clients4.google.com:443 from 127.0.0.1:35137
+2016-06-17 10:05:25 INFO     connecting www.google.com:443 from 127.0.0.1:35146
+2016-06-17 10:05:25 INFO     connecting www.google.com:443 from 127.0.0.1:35148
+2016-06-17 10:05:26 INFO     connecting clients4.google.com:443 from 127.0.0.1:35156
+2016-06-17 10:05:39 ERROR    [Errno 104] Connection reset by peer
+2016-06-17 10:05:39 INFO     connecting clients1.google.com:443 from 127.0.0.1:35177
+2016-06-17 10:06:24 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35186
+2016-06-17 10:06:27 INFO     connecting m.addthis.com:80 from 127.0.0.1:35194
+2016-06-17 10:06:27 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35196
+2016-06-17 10:06:27 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35200
+2016-06-17 10:06:28 INFO     connecting api-public.addthis.com:80 from 127.0.0.1:35202
+2016-06-17 10:06:29 INFO     connecting su.addthis.com:80 from 127.0.0.1:35207
+2016-06-17 10:06:52 INFO     connecting api-public.addthis.com:80 from 127.0.0.1:35215
+2016-06-17 10:06:52 INFO     connecting api-public.addthis.com:80 from 127.0.0.1:35216
+2016-06-17 10:06:52 INFO     connecting m.addthis.com:80 from 127.0.0.1:35219
+2016-06-17 10:06:52 INFO     connecting m.addthis.com:80 from 127.0.0.1:35220
+2016-06-17 10:06:52 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35225
+2016-06-17 10:06:52 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35226
+2016-06-17 10:06:52 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35227
+2016-06-17 10:11:30 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35253
+2016-06-17 10:13:25 INFO     connecting api-public.addthis.com:80 from 127.0.0.1:35261
+2016-06-17 10:13:25 INFO     connecting api-public.addthis.com:80 from 127.0.0.1:35262
+2016-06-17 10:13:25 INFO     connecting m.addthis.com:80 from 127.0.0.1:35265
+2016-06-17 10:13:25 INFO     connecting m.addthis.com:80 from 127.0.0.1:35266
+2016-06-17 10:13:25 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35269
+2016-06-17 10:13:25 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35270
+2016-06-17 10:13:25 INFO     connecting s7.addthis.com:80 from 127.0.0.1:35271
+2016-06-17 10:13:38 INFO     connecting clients4.google.com:443 from 127.0.0.1:35287
+2016-06-17 10:13:42 INFO     connecting m.addthis.com:80 from 127.0.0.1:35289
+2016-06-17 10:13:44 INFO     connecting api-public.addthis.com:80 from 127.0.0.1:35298
+2016-06-17 10:16:30 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 10:16:30 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35300
+2016-06-17 10:21:33 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35304
+2016-06-17 10:25:19 INFO     connecting clients4.google.com:443 from 127.0.0.1:35308
+2016-06-17 10:26:05 INFO     connecting clients4.google.com:443 from 127.0.0.1:35310
+2016-06-17 10:26:38 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35312
+2016-06-17 10:31:39 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35314
+2016-06-17 10:36:20 INFO     connecting clients4.google.com:443 from 127.0.0.1:35316
+2016-06-17 10:36:42 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35318
+2016-06-17 10:41:43 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35320
+2016-06-17 10:41:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35322
+2016-06-17 10:46:46 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 10:46:46 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35332
+2016-06-17 10:47:20 INFO     connecting clients4.google.com:443 from 127.0.0.1:35334
+2016-06-17 10:47:36 INFO     connecting clients4.google.com:443 from 127.0.0.1:35336
+2016-06-17 10:51:49 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35343
+2016-06-17 10:52:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35347
+2016-06-17 10:56:57 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35349
+2016-06-17 10:58:20 INFO     connecting clients4.google.com:443 from 127.0.0.1:35351
+2016-06-17 11:02:16 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35353
+2016-06-17 11:05:41 INFO     connecting clients4.google.com:443 from 127.0.0.1:35355
+2016-06-17 11:07:19 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:07:19 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35357
+2016-06-17 11:12:27 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35359
+2016-06-17 11:14:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35361
+2016-06-17 11:16:35 INFO     connecting clients4.google.com:443 from 127.0.0.1:35363
+2016-06-17 11:17:27 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:17:27 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35365
+2016-06-17 11:22:31 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35369
+2016-06-17 11:25:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35373
+2016-06-17 11:27:04 INFO     connecting clients2.google.com:443 from 127.0.0.1:35375
+2016-06-17 11:27:39 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:27:39 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35377
+2016-06-17 11:28:51 INFO     connecting clients4.google.com:443 from 127.0.0.1:35379
+2016-06-17 11:32:39 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:32:39 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35381
+2016-06-17 11:37:46 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35383
+2016-06-17 11:42:52 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:42:52 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35385
+2016-06-17 11:47:54 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:47:54 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35388
+2016-06-17 11:50:43 INFO     connecting clients4.google.com:443 from 127.0.0.1:35395
+2016-06-17 11:52:58 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 11:52:58 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35399
+2016-06-17 11:55:58 INFO     connecting clients4.google.com:443 from 127.0.0.1:35401
+2016-06-17 11:58:06 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35403
+2016-06-17 12:03:07 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:03:07 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35405
+2016-06-17 12:08:14 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:08:14 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35407
+2016-06-17 12:08:46 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35409
+2016-06-17 12:09:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35411
+2016-06-17 12:12:35 INFO     connecting clients4.google.com:443 from 127.0.0.1:35413
+2016-06-17 12:13:49 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35415
+2016-06-17 12:18:50 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:18:50 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35417
+2016-06-17 12:20:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35421
+2016-06-17 12:24:08 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35429
+2016-06-17 12:29:17 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35433
+2016-06-17 12:34:18 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35435
+2016-06-17 12:36:12 INFO     connecting clients4.google.com:443 from 127.0.0.1:35437
+2016-06-17 12:39:24 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:39:24 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35439
+2016-06-17 12:44:44 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35441
+2016-06-17 12:49:47 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:49:47 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35444
+2016-06-17 12:54:51 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:54:51 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35453
+2016-06-17 12:56:10 INFO     connecting clients4.google.com:443 from 127.0.0.1:35455
+2016-06-17 12:59:55 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 12:59:55 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35457
+2016-06-17 13:04:55 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 13:04:55 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35459
+2016-06-17 13:08:39 INFO     connecting clients4.google.com:443 from 127.0.0.1:35461
+2016-06-17 13:10:00 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35463
+2016-06-17 13:14:05 INFO     connecting clients4.google.com:443 from 127.0.0.1:35465
+2016-06-17 13:15:09 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 13:15:09 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35467
+2016-06-17 13:20:29 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 13:20:29 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35471
+2016-06-17 13:25:32 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35475
+2016-06-17 13:30:33 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35477
+2016-06-17 13:31:15 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35479
+2016-06-17 13:34:43 INFO     connecting clients4.google.com:443 from 127.0.0.1:35481
+2016-06-17 13:36:25 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35483
+2016-06-17 13:41:27 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35485
+2016-06-17 13:46:29 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 13:46:29 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35488
+2016-06-17 13:47:17 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35490
+2016-06-17 13:48:13 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35492
+2016-06-17 13:48:50 INFO     connecting clients4.google.com:443 from 127.0.0.1:35494
+2016-06-17 13:51:35 INFO     connecting clients4.google.com:443 from 127.0.0.1:35498
+2016-06-17 13:53:19 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 13:53:19 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35502
+2016-06-17 13:58:26 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35507
+2016-06-17 14:03:27 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35509
+2016-06-17 14:08:34 WARNING  timed out: mtalk.google.com:5228
+2016-06-17 14:08:34 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35511
+2016-06-17 14:12:39 INFO     connecting clients4.google.com:443 from 127.0.0.1:35513
+2016-06-17 14:13:38 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35515
+2016-06-17 14:15:20 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:35517
+2016-06-17 19:05:02 INFO     connecting clients4.google.com:443 from 127.0.0.1:35519
+2016-06-17 19:05:02 INFO     connecting www.google.com:443 from 127.0.0.1:35520
+2016-06-17 19:05:02 INFO     connecting mtalk.google.com:443 from 127.0.0.1:35521
+2016-06-17 19:05:03 INFO     connecting m.addthis.com:80 from 127.0.0.1:35532
+2016-06-17 19:05:04 INFO     connecting m.addthis.com:80 from 127.0.0.1:35534
+2016-06-17 19:05:10 INFO     connecting mail.google.com:443 from 127.0.0.1:35545
+2016-06-17 19:05:15 INFO     connecting clients4.google.com:443 from 127.0.0.1:35547
+2016-06-17 19:06:28 INFO     connecting mail.google.com:443 from 127.0.0.1:35592
+2016-06-17 19:06:30 INFO     connecting clients4.google.com:443 from 127.0.0.1:35607
+2016-06-17 19:06:39 INFO     connecting www.gstatic.com:80 from 127.0.0.1:35624
+2016-06-17 19:06:44 INFO     connecting clients1.google.com:443 from 127.0.0.1:35626
+2016-06-17 19:06:45 INFO     connecting clients1.google.com:443 from 127.0.0.1:35628
+INFO: loading config from /home/v/.config/ss/config.json
+2016-06-18 17:16:35 INFO     loading libcrypto from libcrypto.so.1.0.0
+2016-06-18 17:16:35 INFO     starting local at 127.0.0.1:1080
+2016-06-18 17:16:38 INFO     connecting mtalk.google.com:443 from 127.0.0.1:33156
+2016-06-18 17:16:41 INFO     connecting www.google.com:443 from 127.0.0.1:33158
+2016-06-18 17:16:41 INFO     connecting www.google.com:443 from 127.0.0.1:33160
+2016-06-18 17:16:41 INFO     connecting www.google.com:443 from 127.0.0.1:33162
+2016-06-18 17:16:41 INFO     connecting mail.google.com:443 from 127.0.0.1:33164
+2016-06-18 17:16:41 INFO     connecting clients2.google.com:443 from 127.0.0.1:33166
+2016-06-18 17:16:46 INFO     connecting www.googleapis.com:443 from 127.0.0.1:33168
+2016-06-18 17:16:48 INFO     connecting ssl.google-analytics.com:443 from 127.0.0.1:33170
+2016-06-18 17:16:50 INFO     connecting autoproxy-gfwlist.googlecode.com:443 from 127.0.0.1:33172
+2016-06-18 17:16:52 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:16:52 INFO     connecting clients4.google.com:443 from 127.0.0.1:33174
+2016-06-18 17:16:52 INFO     connecting clients4.google.com:443 from 127.0.0.1:33175
+2016-06-18 17:16:52 INFO     connecting accounts.google.com:443 from 127.0.0.1:33179
+2016-06-18 17:16:52 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:16:52 INFO     connecting accounts.google.com:443 from 127.0.0.1:33182
+2016-06-18 17:16:53 INFO     connecting accounts.google.com:443 from 127.0.0.1:33184
+2016-06-18 17:16:56 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:16:56 INFO     connecting android.clients.google.com:443 from 127.0.0.1:33188
+2016-06-18 17:17:05 INFO     connecting www.gstatic.com:443 from 127.0.0.1:33191
+2016-06-18 17:17:06 INFO     connecting lh3.googleusercontent.com:443 from 127.0.0.1:33193
+2016-06-18 17:17:06 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:17:06 INFO     connecting mail-attachment.googleusercontent.com:443 from 127.0.0.1:33195
+2016-06-18 17:17:06 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:33197
+2016-06-18 17:17:06 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:33199
+2016-06-18 17:17:07 INFO     connecting clients2.google.com:443 from 127.0.0.1:33201
+2016-06-18 17:17:07 INFO     connecting www.google.com:443 from 127.0.0.1:33203
+2016-06-18 17:17:07 INFO     connecting www.google.com:443 from 127.0.0.1:33205
+2016-06-18 17:17:07 INFO     connecting www.google.com:443 from 127.0.0.1:33207
+2016-06-18 17:17:10 INFO     connecting clients5.google.com:443 from 127.0.0.1:33231
+2016-06-18 17:17:10 INFO     connecting plus.google.com:443 from 127.0.0.1:33233
+2016-06-18 17:17:10 INFO     connecting clients5.google.com:443 from 127.0.0.1:33235
+2016-06-18 17:17:10 INFO     connecting plus.google.com:443 from 127.0.0.1:33237
+2016-06-18 17:17:11 INFO     connecting play.google.com:443 from 127.0.0.1:33239
+2016-06-18 17:17:13 INFO     connecting play.google.com:443 from 127.0.0.1:33243
+2016-06-18 17:17:14 INFO     connecting clients6.google.com:443 from 127.0.0.1:33245
+2016-06-18 17:17:14 INFO     connecting apis.google.com:443 from 127.0.0.1:33247
+2016-06-18 17:19:14 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:19:14 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:19:14 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:19:14 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:19:14 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:19:14 INFO     connecting clients4.google.com:443 from 127.0.0.1:33290
+2016-06-18 17:19:22 INFO     connecting clients1.google.com:443 from 127.0.0.1:33312
+2016-06-18 17:21:57 WARNING  timed out: mtalk.google.com:443
+2016-06-18 17:21:57 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:33332
+2016-06-18 17:22:10 INFO     connecting www.gstatic.com:443 from 127.0.0.1:33339
+2016-06-18 17:22:13 INFO     connecting clients5.google.com:443 from 127.0.0.1:33343
+2016-06-18 17:22:14 INFO     connecting plus.google.com:443 from 127.0.0.1:33347
+2016-06-18 17:22:18 INFO     connecting apis.google.com:443 from 127.0.0.1:33349
+2016-06-18 17:22:18 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:33353
+2016-06-18 17:22:19 INFO     connecting id.google.com:443 from 127.0.0.1:33355
+2016-06-18 17:22:24 INFO     connecting ajax.googleapis.com:80 from 127.0.0.1:33364
+2016-06-18 17:22:24 INFO     connecting fonts.gstatic.com:80 from 127.0.0.1:33366
+2016-06-18 17:22:28 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:22:28 INFO     connecting www.google-analytics.com:443 from 127.0.0.1:33374
+2016-06-18 17:22:41 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:22:41 ERROR    [Errno 104] Connection reset by peer
+2016-06-18 17:22:41 INFO     connecting apis.google.com:443 from 127.0.0.1:33376
+2016-06-18 17:22:41 INFO     connecting clients5.google.com:443 from 127.0.0.1:33377
+2016-06-18 17:22:41 INFO     connecting lh3.googleusercontent.com:443 from 127.0.0.1:33378
+2016-06-18 17:22:41 INFO     connecting ssl.gstatic.com:443 from 127.0.0.1:33379
+2016-06-18 17:22:42 INFO     connecting csi.gstatic.com:443 from 127.0.0.1:33384
+2016-06-18 17:22:46 INFO     connecting cdn.sstatic.net:80 from 127.0.0.1:33388
+2016-06-18 17:22:46 INFO     connecting cdn.sstatic.net:80 from 127.0.0.1:33390
+2016-06-18 17:22:46 INFO     connecting www.gravatar.com:443 from 127.0.0.1:33392
+2016-06-18 17:22:46 INFO     connecting lh5.googleusercontent.com:443 from 127.0.0.1:33394
+2016-06-18 17:22:50 INFO     connecting cdn.sstatic.net:80 from 127.0.0.1:33401
+2016-06-18 17:22:50 INFO     connecting cdn.sstatic.net:80 from 127.0.0.1:33404
+2016-06-18 17:22:51 INFO     connecting cdn.sstatic.net:80 from 127.0.0.1:33412
+2016-06-18 17:22:51 INFO     connecting cdn.sstatic.net:80 from 127.0.0.1:33414
+2016-06-18 17:27:01 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:33486
+2016-06-18 17:27:54 WARNING  timed out: cdn.sstatic.net:80
+2016-06-18 17:27:54 WARNING  timed out: cdn.sstatic.net:80
+2016-06-18 17:32:05 INFO     connecting mtalk.google.com:5228 from 127.0.0.1:33536
+2016-06-18 17:33:45 INFO     connecting clients4.google.com:443 from 127.0.0.1:33554

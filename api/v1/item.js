@@ -68,47 +68,58 @@ exports.read = (req, res) => {
 	var u_id_arr = [];
 	var down_u_id_arr = [];
 	var i = 0;
-	var u_id = '11';
+	var u_id = '-1';//'11';
+	console.log(req.query.tk);
+	jwt.verify(req.query.tk, 'keyvalue', function(err, decoded) {
+		console.log(err);
+		console.log('-------');
+		if(!err || (req.query.tk == 'null')) {
 
-	db.query('SELECT * FROM item LIMIT 30', function(err, result) {
-		if(err) {
-			res.json({
-				code: 401,
-				param: {
-					msg:'读取数据库失败',
-					sub: err
+			db.query('SELECT * FROM item LIMIT 30', function(err, result) {
+				if(err) {
+					res.json({
+						code: 401,
+						param: {
+							msg:'读取数据库失败',
+							sub: err
+						}
+					});
+				} else {
+					u_id = decoded.u_id;
+					for(i = 0; i < result.length; i++) {
+						(function(i) {
+							u_id_arr = result[i].up_id.split(',');
+							down_u_id_arr = result[i].down_id.split(',');
+							if(array.indexOf(u_id_arr, (u_id).toString()) == -1) { //不存在
+								result[i].isUp = 0;
+							} else {
+								result[i].isUp = 1;
+							}
+
+							if(array.indexOf(down_u_id_arr, (u_id).toString()) == -1) { //不存在
+								result[i].isDown = 0;
+							} else {
+								result[i].isDown = 1;
+							}
+
+						})(i)
+						
+					}
+					res.json({
+						code: 200,
+						msg: '读取数据成功',
+						data: result
+					});
 				}
 			});
 		} else {
-
-			for(i = 0; i < result.length; i++) {
-				(function(i) {
-					u_id_arr = result[i].up_id.split(',');
-					down_u_id_arr = result[i].down_id.split(',');
-					if(array.indexOf(u_id_arr, (u_id).toString()) == -1) { //不存在
-						result[i].isUp = 0;
-						// result[i].isDown = 0;
-					} else {
-						result[i].isUp = 1;
-					}
-
-					if(array.indexOf(down_u_id_arr, (u_id).toString()) == -1) { //不存在
-						result[i].isDown = 0;
-						// result[i].isDown = 0;
-					} else {
-						result[i].isDown = 1;
-					}
-
-				})(i)
-				
-			}
 			res.json({
-				code: 200,
-				msg: '读取数据成功',
-				data: result
-			});
+				code: 401,
+				msg: 'token无效'
+			})
 		}
 	});
+
 };
 
 //up 
