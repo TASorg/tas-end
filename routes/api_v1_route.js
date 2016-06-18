@@ -9,7 +9,7 @@ var item = require('../api/v1/item');
 
 var common = require('../api/v1/common');
 
-router.post('/user/register', user.register);
+router.post('/user/register', cors(), user.register);
 
 router.post('/user/login', cors(), user.login);
 

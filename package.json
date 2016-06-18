@@ -5,7 +5,7 @@
   "scripts": {
     "start": "babel-node ./bin/www",
     "lint": "eslint ./api",
-    "auto-start": "nodemon --exec \"npm run lint && npm start\" --ignore public/js"
+    "as": "nodemon --exec \"npm run lint && npm start\" --ignore public/js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
