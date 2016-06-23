@@ -33,11 +33,11 @@ exports.register = (req, res) => {
     } else {
         db.query('SELECT * FROM user WHERE u_name = ?', req.body.username, function(err, rows, fields) {
             if(rows.length > 0) {
-                res.json({data: '用户名已被注册'});
+                res.json({msg: '用户名已被注册'});
             } else {
                 db.query('SELECT * FROM user WHERE u_email = ?', req.body.email, function(err, rows, fields) {
                     if(rows.length > 0) {
-                        res.json({data: '邮箱已被注册'});
+                        res.json({msg: '邮箱已被注册'});
                     } else {
                         db.query('INSERT INTO user SET ?', data, function(err, result) {
                             if(err) {

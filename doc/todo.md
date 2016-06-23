@@ -17,3 +17,5 @@ api文件和加密key写入配置文件
 ###性能测试
 split inArray VS indexOf
 12,34,242, 
+
+GBK源码研究
