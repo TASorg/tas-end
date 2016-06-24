@@ -115,6 +115,61 @@ exports.read = (req, res) => {
 
 };
 
+// delete
+exports.delete = (req, res) => {
+    var item_token = req.body.i_token;
+    var u_token = req.body.u_token;
+    var i_u_id = null; // item token user uuid
+    var u_u_id = null; // user token user uuid
+    var i_uuid = null; // item  uuid
+
+    jwt.verify(item_token, 'item_token*&^', function(err, decoded) {
+        if(err) {
+            res.json({
+                code: 401,
+                msg: 'token无效'
+            })
+        } else {
+            i_u_id = decoded.u_id;
+            i_uuid = decoded.uuid;
+
+            jwt.verify(u_token, 'keyvalue', function(err, decoded) {
+                if(err) {
+                    res.json({
+                        code: 401,
+                        msg: 'token无效'
+                    })
+                } else {
+                    u_u_id = decoded.u_id;
+                    if(i_u_id == u_u_id) {
+                        db.query('DELETE FROM item WHERE uuid = ?', i_uuid, function(err, result) {
+                            if(err) {
+                                res.json({
+                                    code: 401,
+                                    param: {
+                                        msg:'读取数据库失败',
+                                        sub: err
+                                    }
+                                });
+                            } else {
+                                res.json({
+                                    code: 200,
+                                    msg: '删除成功'
+                                })
+                            }
+                        })
+                    } else {
+                        res.json({
+                            code: '405',
+                            msg: '没有权限删除'
+                        })
+                    }
+                }
+            })
+        }
+    }) 
+}
+
 //up 
 exports.upVote = (req, res) => {
     var data = {};
