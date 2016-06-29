@@ -10,13 +10,16 @@ import jwt from 'jsonwebtoken';
 import phridge from "phridge";
 
 import array from 'lodash/array';
+import config from '../../config';
+
+const itemKey = config.ITEM_JWT_KEY;
+const userKey = config.USER_JWT_KEY;
 
 /**
  * 发表
  * @TODO 增加前置条件，判断是否登录
  * @TODO 判断数据是否重复
  */
-
 exports.say = (req, res) => {
     var data = {};
     var flag = true;
@@ -61,15 +64,12 @@ exports.read = (req, res) => {
     var u_id_arr = [];
     var down_u_id_arr = [];
     var i = 0;
-    var u_id = '-1';//'11';
+    var u_id = '-1';
     var num = req.query.num || 0;
-    console.log(num);
     var pageSize = 6;
     var offset = num * pageSize;
-    console.log('offset = ' + offset);
 
-    console.log(req.query.tk);
-    jwt.verify(req.query.tk, 'keyvalue', function(err, decoded) {
+    jwt.verify(req.query.tk, userKey, function(err, decoded) {
         if(!err || (req.query.tk == 'null') || (!req.query.tk)) {
 
             db.query('SELECT * FROM item ORDER BY time DESC LIMIT ?, ?', [offset, pageSize], function(err, result) {
@@ -129,7 +129,7 @@ exports.delete = (req, res) => {
     var u_u_id = null; // user token user uuid
     var i_uuid = null; // item  uuid
 
-    jwt.verify(item_token, 'item_token*&^', function(err, decoded) {
+    jwt.verify(item_token, itemKey, function(err, decoded) {
         if(err) {
             res.json({
                 code: 401,
@@ -139,7 +139,7 @@ exports.delete = (req, res) => {
             i_u_id = decoded.u_id;
             i_uuid = decoded.uuid;
 
-            jwt.verify(u_token, 'keyvalue', function(err, decoded) {
+            jwt.verify(u_token, userKey, function(err, decoded) {
                 if(err) {
                     res.json({
                         code: 401,
@@ -188,14 +188,14 @@ exports.upVote = (req, res) => {
     var down_u_id_arr = [];
 
     // @TODO 抽离成单元
-    jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
+    jwt.verify(req.body.token, userKey, function(err, decoded) {
         if(err) {
             res.json({
                 code: 401,
                 msg: 'token无效'
             })
         } else {
-            u_id = decoded.u_id;// + ',';
+            u_id = decoded.u_id;
 
             if(!flag) {
                 res.json({sub: '填写正确的数据'});
@@ -217,7 +217,6 @@ exports.upVote = (req, res) => {
                         u_id_arr = result[0].up_id.split(',');
                         down_u_id_arr = result[0].down_id.split(',');
 
-                        console.log(u_id_arr);
                         if(array.indexOf(u_id_arr, (u_id).toString()) != -1) { //不存在
                             res.json({
                                 code: 402,
@@ -273,11 +272,9 @@ exports.downVote = (req, res) => {
     var old_u_id = null; //已点赞用户id
     var u_id_arr = [];
     var down_u_id_arr = [];
-    // var down_u_id_arr = [];
 
-    // data.content = req.body.content || (flag = false);
     // @TODO 抽离成单元
-    jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
+    jwt.verify(req.body.token, userKey, function(err, decoded) {
         if(err) {
             res.json({
                 code: 401,
@@ -285,7 +282,7 @@ exports.downVote = (req, res) => {
             })
         } else {
 
-            u_id = decoded.u_id;// + ',';
+            u_id = decoded.u_id;
 
             if(!flag) {
                 res.json({sub: '填写正确的数据'});
@@ -379,7 +376,7 @@ function getTitle(url) {
 function say2DB(req, res, type, flag, data) {
     // data.content = req.body.content || (flag = false);
     // @TODO 抽离成单元
-    jwt.verify(req.body.token, 'keyvalue', function(err, decoded) {
+    jwt.verify(req.body.token, userKey, function(err, decoded) {
         if(err) {
             return res.json({
                 code: 401,
@@ -394,7 +391,7 @@ function say2DB(req, res, type, flag, data) {
             data.token = jwt.sign({
                     uuid: data.uuid,
                     u_id: data.u_id
-                },'item_token*&^');
+                }, itemKey);
 
             if(!flag) {
                 return res.json({sub: '填写正确的数据'});
@@ -454,8 +451,6 @@ phridge.spawn()
 
     .then(phridge.disposeAll)
     .then(function () {
-        console.log(data);
-        console.log('-----------')
         say2DB(req, res, type, flag, data);
     });
 

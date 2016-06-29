@@ -1,4 +1,3 @@
-
 import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';

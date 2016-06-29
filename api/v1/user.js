@@ -4,10 +4,12 @@ import sha1 from 'sha1';
 import randToken from 'rand-token';
 import jwt from 'jsonwebtoken';
 
+import config from '../../config';
+
+const userKey = config.USER_JWT_KEY;
+
 exports.all = (req, res) => {
-    console.log('test console.log api');
     db.query('SELECT name from fmin ',function(err, rows) {
-        console.log(rows[0]);
         res.send('User update too database with add ID');
     });
 }
@@ -16,7 +18,6 @@ exports.all = (req, res) => {
  * 用户注册
  * {用户名： username}, {密码： password}，{邮箱： email}
  */
-
 exports.register = (req, res) => {
     var data = {};
     var flag = true;
@@ -51,11 +52,11 @@ exports.register = (req, res) => {
                                         uuid: data.u_id,
                                         u_id: result.insertId,
                                         u_name: data.u_name
-                                    },'keyvalue'),
+                                    }, userKey),
                                     code: 200
-                                });                                   
+                                });
                             }
-                        })                      
+                        })
                     }
                 });
             }
@@ -67,9 +68,6 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
     var data = req.body;
 
-    // var token = randToken.generate(32);
-    // var token = jwt.sign({user_id: 123}, 'keyvalue');
-
     if(!data.username) {
         res.send('请输入用户名');
     }
@@ -77,7 +75,7 @@ exports.login = (req, res) => {
         if(err) throw err;
 
         if(results.length > 0 && (sha1(data.password) == results[0].u_password))  {
-            
+
             res.json({
                 data: {
                     username: results[0].u_name
@@ -86,7 +84,7 @@ exports.login = (req, res) => {
                     uuid: results[0].u_id,
                     u_id: results[0].id,
                     u_name: results[0].u_name
-                },'keyvalue'),
+                }, userKey),
                 code: 200
             });
         } else {
