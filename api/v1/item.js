@@ -23,7 +23,7 @@ exports.say = (req, res) => {
     var type = req.body.type || 'word';
     var decoded = null;
 
-    var b_url = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\.cn)?(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/.test(req.body.content); 
+    var b_url = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\.cn)?(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/.test(req.body.content);
 
     if(type == 'image') {
         data.url = req.body.url;
@@ -62,11 +62,17 @@ exports.read = (req, res) => {
     var down_u_id_arr = [];
     var i = 0;
     var u_id = '-1';//'11';
+    var num = req.query.num || 0;
+    console.log(num);
+    var pageSize = 6;
+    var offset = num * pageSize;
+    console.log('offset = ' + offset);
+
     console.log(req.query.tk);
     jwt.verify(req.query.tk, 'keyvalue', function(err, decoded) {
         if(!err || (req.query.tk == 'null') || (!req.query.tk)) {
 
-            db.query('SELECT * FROM item ORDER BY time DESC LIMIT 30 ', function(err, result) {
+            db.query('SELECT * FROM item ORDER BY time DESC LIMIT ?, ?', [offset, pageSize], function(err, result) {
                 if(err) {
                     res.json({
                         code: 401,
@@ -96,7 +102,7 @@ exports.read = (req, res) => {
                             }
 
                         })(i)
-                        
+
                     }
                     res.json({
                         code: 200,
@@ -167,10 +173,10 @@ exports.delete = (req, res) => {
                 }
             })
         }
-    }) 
+    })
 }
 
-//up 
+//up
 exports.upVote = (req, res) => {
     var data = {};
     var flag = true;
@@ -245,7 +251,7 @@ exports.upVote = (req, res) => {
                                         data: result
                                     });
                                 }
-                            });                                 
+                            });
                         }
                     }
                 })
@@ -256,7 +262,7 @@ exports.upVote = (req, res) => {
 
 /**
  * 用户点赞操作
- * @param 
+ * @param
  */
 exports.downVote = (req, res) => {
     var data = {};
@@ -333,7 +339,7 @@ exports.downVote = (req, res) => {
                                         data: result
                                     });
                                 }
-                            });                                 
+                            });
                         }
                     }
                 })
@@ -366,7 +372,7 @@ function getTitle(url) {
                 // return title;
             }
 
-        })       
+        })
     })
 }
 
