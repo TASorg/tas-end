@@ -4,6 +4,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
+  debug    : true,
   database : 'Tas'
 });
 

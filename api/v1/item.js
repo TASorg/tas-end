@@ -41,12 +41,40 @@ exports.say = (req, res) => {
                 getGoodsInfo(req, res, type, flag, data);
                 return false;
             } else {
-                say2DB(req, res, type, flag, data);
+              if(url.indexOf('music.163.com') !== -1) {
+                data.url = 'url';
+                // http://music.163.com/#/song?id=31168234
+                var id = url.split('=')[1];
+                getNetMusicInfo(id).then(function(_data) {
+                  var _data = JSON.parse(_data);
+                  // console.log(_data);
+
+                  var song = _data.songs[0];
+                  var type = 'net_music';
+                  data.type = 'net_music';
+                  data.mp3_url = song.mp3Url;
+                  data.cover_img =  song.album.blurPicUrl;
+                  data.duration = song.duration;
+                  data.artists = song.artists[0].name;
+                  data.title = song.name;
+
+                  // data.
+                  say2MusicDB(req, res, type, flag, data);
+                  // console.log('00000000000000000000');
+                });
+                return false;
+              }
+              data.url = url;
+              getTitle(req.body.content).then(function(t) {
+                  data.title = t;
+                  say2DB(req, res, type, flag, data);
+              });
             }
             return false;
         } else {
             var url = 'http:\\\\' + url;
         }
+
         data.url = url;
         getTitle(req.body.content).then(function(t) {
             data.title = t;
@@ -352,7 +380,7 @@ exports.downVote = (req, res) => {
  */
 function getTitle(url) {
     if(url.indexOf('http') === 0) {
-        var url =url;
+        var url = url;
     } else {
         var url = 'http:\\\\' + url;
     }
@@ -386,12 +414,14 @@ function say2DB(req, res, type, flag, data) {
             data.uuid = uuid.v4();
             data.u_id = decoded.u_id;
             data.u_name = decoded.u_name;
-            data.type = req.body.type || type ;
+            data.type = req.body.type || type;
 
             data.token = jwt.sign({
                     uuid: data.uuid,
                     u_id: data.u_id
                 }, itemKey);
+
+            console.log(data);
 
             if(!flag) {
                 return res.json({sub: '填写正确的数据'});
@@ -416,7 +446,72 @@ function say2DB(req, res, type, flag, data) {
             }
         }
     });
+}
 
+//网易云音乐数据插入
+
+function say2MusicDB(req, res, type, flag, data) {
+  // data.content = req.body.content || (flag = false);
+  // @TODO 抽离成单元
+  jwt.verify(req.body.token, userKey, function(err, decoded) {
+      if(err) {
+          return res.json({
+              code: 401,
+              msg: 'token无效'
+          })
+      } else {
+          data.uuid = uuid.v4();
+          data.u_id = decoded.u_id;
+          data.u_name = decoded.u_name;
+          data.type = req.body.type || type;
+
+          data.token = jwt.sign({
+                  uuid: data.uuid,
+                  u_id: data.u_id
+              }, itemKey);
+
+          console.log(data);
+
+          if(!flag) {
+              return res.json({sub: '填写正确的数据'});
+          } else {//判断数据重复性
+              db.query('INSERT INTO music SET ?', data, function(err, result) {
+                  if(err) {
+                      return res.json({
+                          code: 401,
+                          param: {
+                              msg:'写入数据库失败',
+                              sub: err,
+                              data: data
+                          }
+                      });
+                  } else {
+                      return res.json({
+                          code: 200,
+                          msg: '插入数据成功'
+                      });
+                  }
+              });
+          }
+      }
+  });
+}
+
+//网易云音乐信息抓取
+function getNetMusicInfo(id) {
+  var apiUrl = 'http://music.163.com/api/song/detail?id='
+             + id + '&ids=[' + id + ']';
+
+  return new Promise(function(resolve, reject) {
+      request.get(apiUrl, function(err, res, body) {
+          if(err) {
+              reject(err);
+          } else {
+              resolve(body);
+          }
+
+      })
+  })
 }
 
 //商品信息抓取
