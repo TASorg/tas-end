@@ -94,7 +94,7 @@ exports.read = (req, res) => {
     var i = 0;
     var u_id = '-1';
     var num = req.query.num || 0;
-    var pageSize = 6;
+    var pageSize = 100;
     var offset = num * pageSize;
 
     jwt.verify(req.query.tk, userKey, function(err, decoded) {
