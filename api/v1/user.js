@@ -26,6 +26,8 @@ exports.register = (req, res) => {
     data.u_name = req.body.username || (flag = false);
     data.u_email = req.body.email || (flag = false);
     data.u_password = req.body.password ? sha1(req.body.password) : (flag = false);
+
+    // console.log(data.u_password)
     data.u_id = uuid.v4();
     data.u_token = token;
 
@@ -73,7 +75,7 @@ exports.login = (req, res) => {
     }
     db.query('SELECT * FROM user WHERE u_name = ? ', data.username, function(err, results, fields) {
         if(err) throw err;
-
+        console.log(results);
         if(results.length > 0 && (sha1(data.password) == results[0].u_password))  {
 
             res.json({
@@ -90,5 +92,20 @@ exports.login = (req, res) => {
         } else {
             res.json({data: '用户名或密码错误'});
         }
+    })
+}
+
+exports.updatePwd = (req, res) => {
+    var password = req.body.password;
+    var userName = req.body.userName;
+
+    db.query('UPDATE user SET u_password = ? WHERE u_name = ?'
+        , [password, userName]
+        , function(err, results, fields) {
+            if(err) {
+
+            } else {
+                res.json({data: '密码修改成功'});
+            }
     })
 }

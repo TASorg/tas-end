@@ -28,47 +28,45 @@ exports.say = (req, res) => {
 
     var b_url = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\.cn)?(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&amp;%\$#\=~_\-]+))*$/.test(req.body.content);
 
-    if(type == 'image') {
+    if (type == 'image') {
         data.url = req.body.url;
-    } else if(b_url) {
+    } else if (b_url) {
         var url = req.body.content;
         type = 'url';
-        if(url.indexOf('http') === 0) {
+        if (url.indexOf('http') === 0) {
             var url = url;
-            if(url.indexOf('item.taobao.com') !== -1) {
+            if (url.indexOf('item.taobao.com') !== -1) {
                 type = 'taobao'; // ? type = 'goods'
                 data.url = url;
                 getGoodsInfo(req, res, type, flag, data);
                 return false;
             } else {
-              if(url.indexOf('music.163.com') !== -1) {
-                data.url = 'url';
-                // http://music.163.com/#/song?id=31168234
-                var id = url.split('=')[1];
-                getNetMusicInfo(id).then(function(_data) {
-                  var _data = JSON.parse(_data);
-                  // console.log(_data);
+                if (url.indexOf('music.163.com') !== -1) {
+                    data.url = 'url';
+                    // http://music.163.com/#/song?id=31168234
+                    var id = url.split('=')[1];
+                    getNetMusicInfo(id).then(function(_data) {
+                        var _data = JSON.parse(_data);
 
-                  var song = _data.songs[0];
-                  var type = 'net_music';
-                  data.type = 'net_music';
-                  data.mp3_url = song.mp3Url;
-                  data.cover_img =  song.album.blurPicUrl;
-                  data.duration = song.duration;
-                  data.artists = song.artists[0].name;
-                  data.title = song.name;
+                        var song = _data.songs[0];
+                        var type = 'net_music';
+                        data.type = 'net_music';
+                        data.mp3_url = song.mp3Url;
+                        data.cover_img = song.album.blurPicUrl;
+                        data.duration = song.duration;
+                        data.artists = song.artists[0].name;
+                        data.title = song.name;
 
-                  // data.
-                  say2MusicDB(req, res, type, flag, data);
-                  // console.log('00000000000000000000');
+                        // data.
+                        say2MusicDB(req, res, type, flag, data);
+                    });
+                    return false;
+                }
+                data.url = url;
+                getTitle(req.body.content).then(function(t) {
+                    data.title = t;
+                    say2DB(req, res, type, flag, data);
                 });
-                return false;
-              }
-              data.url = url;
-              getTitle(req.body.content).then(function(t) {
-                  data.title = t;
-                  say2DB(req, res, type, flag, data);
-              });
             }
             return false;
         } else {
@@ -98,32 +96,36 @@ exports.read = (req, res) => {
     var offset = num * pageSize;
 
     jwt.verify(req.query.tk, userKey, function(err, decoded) {
-        if(!err || (req.query.tk == 'null') || (!req.query.tk)) {
+        if (!err || (req.query.tk == 'null') || (!req.query.tk)) {
 
-            db.query('SELECT * FROM item ORDER BY time DESC LIMIT ?, ?', [offset, pageSize], function(err, result) {
-                if(err) {
+            db.query('SELECT * FROM item ORDER BY rank, time DESC LIMIT ?, ?', [offset, pageSize], function(err, result) {
+
+                if (err) {
                     res.json({
                         code: 401,
                         param: {
-                            msg:'读取数据库失败',
+                            msg: '读取数据库失败',
                             sub: err
                         }
                     });
                 } else {
-                    if(decoded) {
+                    if (decoded) {
                         u_id = decoded.u_id;
                     }
-                    for(i = 0; i < result.length; i++) {
+                    for (i = 0; i < result.length; i++) {
                         (function(i) {
                             u_id_arr = result[i].up_id.split(',');
                             down_u_id_arr = result[i].down_id.split(',');
-                            if(array.indexOf(u_id_arr, (u_id).toString()) == -1) { //不存在
+
+                            //不存在
+                            if (array.indexOf(u_id_arr, (u_id).toString()) == -1) {
                                 result[i].isUp = 0;
                             } else {
                                 result[i].isUp = 1;
                             }
 
-                            if(array.indexOf(down_u_id_arr, (u_id).toString()) == -1) { //不存在
+                            //不存在
+                            if (array.indexOf(down_u_id_arr, (u_id).toString()) == -1) {
                                 result[i].isDown = 0;
                             } else {
                                 result[i].isDown = 1;
@@ -158,7 +160,7 @@ exports.delete = (req, res) => {
     var i_uuid = null; // item  uuid
 
     jwt.verify(item_token, itemKey, function(err, decoded) {
-        if(err) {
+        if (err) {
             res.json({
                 code: 401,
                 msg: 'token无效'
@@ -168,20 +170,23 @@ exports.delete = (req, res) => {
             i_uuid = decoded.uuid;
 
             jwt.verify(u_token, userKey, function(err, decoded) {
-                if(err) {
+                console.log(decoded);
+                console.log('--------------');
+                if (err) {
                     res.json({
                         code: 401,
                         msg: 'token无效'
                     })
                 } else {
                     u_u_id = decoded.u_id;
-                    if(i_u_id == u_u_id) {
+                    if (i_u_id == u_u_id || decoded.u_name == 'admin') {
                         db.query('DELETE FROM item WHERE uuid = ?', i_uuid, function(err, result) {
-                            if(err) {
+
+                            if (err) {
                                 res.json({
                                     code: 401,
                                     param: {
-                                        msg:'读取数据库失败',
+                                        msg: '读取数据库失败',
                                         sub: err
                                     }
                                 });
@@ -214,10 +219,13 @@ exports.upVote = (req, res) => {
     var old_u_id = null; //已点赞用户id
     var u_id_arr = [];
     var down_u_id_arr = [];
+    var uID = -1;
 
     // @TODO 抽离成单元
+    // 优化所有的sql 语句 切换到sql 而非sqllite
+    // 避免太多回调
     jwt.verify(req.body.token, userKey, function(err, decoded) {
-        if(err) {
+        if (err) {
             res.json({
                 code: 401,
                 msg: 'token无效'
@@ -225,19 +233,21 @@ exports.upVote = (req, res) => {
         } else {
             u_id = decoded.u_id;
 
-            if(!flag) {
-                res.json({sub: '填写正确的数据'});
-            } else {//判断数据重复性
+            if (!flag) {
+                res.json({
+                    sub: '填写正确的数据'
+                });
+            } else { //判断数据重复性
                 //@TODO 重要优化
                 // 做性能测试，尽量两次查询转化为一次查询
                 // 或者转化为redis模式存储点赞逻辑
 
                 db.query('SELECT up_id, down_id FROM item WHERE uuid = ?', uuid, function(err, result) {
-                    if(err) {
+                    if (err) {
                         res.json({
                             code: 401,
                             param: {
-                                msg:'读取数据库失败',
+                                msg: '读取数据库失败',
                                 sub: err
                             }
                         });
@@ -245,14 +255,14 @@ exports.upVote = (req, res) => {
                         u_id_arr = result[0].up_id.split(',');
                         down_u_id_arr = result[0].down_id.split(',');
 
-                        if(array.indexOf(u_id_arr, (u_id).toString()) != -1) { //不存在
+                        if (array.indexOf(u_id_arr, (u_id).toString()) != -1) { //不存在
                             res.json({
                                 code: 402,
                                 param: {
                                     msg: '已经点过赞'
                                 }
                             })
-                        } else if(array.indexOf(down_u_id_arr, (u_id).toString()) != -1) {
+                        } else if (array.indexOf(down_u_id_arr, (u_id).toString()) != -1) {
                             res.json({
                                 code: 403,
                                 param: {
@@ -260,23 +270,27 @@ exports.upVote = (req, res) => {
                                 }
                             })
                         } else {
+                            uID = u_id;
                             old_u_id = result[0].up_id + ',';
                             u_id = old_u_id + u_id;
-                            db.query('UPDATE item SET up = up + 1, up_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
-                                if(err) {
+                            console.log('0000---' + uID + 'dddddddd');
+                            db.query('UPDATE item SET up = up + 1, rank = rank + 0.01, up_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
+                                if (err) {
                                     res.json({
                                         code: 401,
                                         param: {
-                                            msg:'读取数据库失败',
+                                            msg: '读取数据库失败',
                                             sub: err
                                         }
                                     });
                                 } else {
+                                    db.query('UPDATE user SET u_rank = u_rank + 0.01 WHERE id = ?', [uID])
                                     res.json({
                                         code: 200,
                                         msg: '点赞成功',
                                         data: result
                                     });
+
                                 }
                             });
                         }
@@ -301,9 +315,11 @@ exports.downVote = (req, res) => {
     var u_id_arr = [];
     var down_u_id_arr = [];
 
+    var row = null;
+
     // @TODO 抽离成单元
     jwt.verify(req.body.token, userKey, function(err, decoded) {
-        if(err) {
+        if (err) {
             res.json({
                 code: 401,
                 msg: 'token无效'
@@ -312,33 +328,37 @@ exports.downVote = (req, res) => {
 
             u_id = decoded.u_id;
 
-            if(!flag) {
-                res.json({sub: '填写正确的数据'});
-            } else {//判断数据重复性
+            if (!flag) {
+                res.json({
+                    sub: '填写正确的数据'
+                });
+            } else { //判断数据重复性
                 //@TODO 重要优化
                 // 做性能测试，尽量两次查询转化为一次查询
                 // 或者转化为redis模式存储点赞逻辑
 
-                db.query('SELECT up_id,down_id FROM item WHERE uuid = ?', uuid, function(err, result) {
-                    if(err) {
+                db.query('SELECT * FROM item WHERE uuid = ?', uuid, function(err, result) {
+                    if (err) {
                         res.json({
                             code: 401,
                             param: {
-                                msg:'读取数据库失败',
+                                msg: '读取数据库失败',
                                 sub: err
                             }
                         });
                     } else {
+                        row = result[0];
+
                         u_id_arr = result[0].up_id.split(',');
                         down_u_id_arr = result[0].down_id.split(',');
-                        if(array.indexOf(u_id_arr, (u_id).toString()) != -1) { //存在
+                        if (array.indexOf(u_id_arr, (u_id).toString()) != -1) { //存在
                             res.json({
                                 code: 402,
                                 param: {
-                                    msg: '已经点过赞'
+                                    msg: '已经发表过意见啦~'
                                 }
                             })
-                        } else if(array.indexOf(down_u_id_arr, (u_id).toString()) != -1) {
+                        } else if (array.indexOf(down_u_id_arr, (u_id).toString()) != -1) {
                             res.json({
                                 code: 403,
                                 param: {
@@ -349,15 +369,18 @@ exports.downVote = (req, res) => {
                             old_u_id = result[0].up_id + ',';
                             u_id = old_u_id + u_id;
                             db.query('UPDATE item SET down = down + 1, down_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
-                                if(err) {
+                                if (err) {
                                     res.json({
                                         code: 401,
                                         param: {
-                                            msg:'读取数据库失败',
+                                            msg: '读取数据库失败',
                                             sub: err
                                         }
                                     });
                                 } else {
+                                    console.log(row);
+                                    console.log(row);
+                                    console.log('00000000000');
                                     res.json({
                                         code: 200,
                                         msg: 'say NO成功',
@@ -372,21 +395,28 @@ exports.downVote = (req, res) => {
         }
     });
 
-
 }
+
+/**
+ * 判断是否触发了删除操作,如果触发则删除
+ */
+function isDelItem() {
+    
+}
+
 
 /**
  * 根据URL获取title
  */
 function getTitle(url) {
-    if(url.indexOf('http') === 0) {
+    if (url.indexOf('http') === 0) {
         var url = url;
     } else {
         var url = 'http:\\\\' + url;
     }
     return new Promise(function(resolve, reject) {
         request.get(url, function(err, res, body) {
-            if(err) {
+            if (err) {
                 reject(err);
             } else {
                 res.setEncoding('utf-8');
@@ -405,7 +435,7 @@ function say2DB(req, res, type, flag, data) {
     // data.content = req.body.content || (flag = false);
     // @TODO 抽离成单元
     jwt.verify(req.body.token, userKey, function(err, decoded) {
-        if(err) {
+        if (err) {
             return res.json({
                 code: 401,
                 msg: 'token无效'
@@ -417,21 +447,22 @@ function say2DB(req, res, type, flag, data) {
             data.type = req.body.type || type;
 
             data.token = jwt.sign({
-                    uuid: data.uuid,
-                    u_id: data.u_id
-                }, itemKey);
+                uuid: data.uuid,
+                u_id: data.u_id
+            }, itemKey);
 
-            console.log(data);
 
-            if(!flag) {
-                return res.json({sub: '填写正确的数据'});
-            } else {//判断数据重复性
+            if (!flag) {
+                return res.json({
+                    sub: '填写正确的数据'
+                });
+            } else { //判断数据重复性
                 db.query('INSERT INTO item SET ?', data, function(err, result) {
-                    if(err) {
+                    if (err) {
                         return res.json({
                             code: 401,
                             param: {
-                                msg:'写入数据库失败',
+                                msg: '写入数据库失败',
                                 sub: err,
                                 data: data
                             }
@@ -451,102 +482,101 @@ function say2DB(req, res, type, flag, data) {
 //网易云音乐数据插入
 
 function say2MusicDB(req, res, type, flag, data) {
-  // data.content = req.body.content || (flag = false);
-  // @TODO 抽离成单元
-  jwt.verify(req.body.token, userKey, function(err, decoded) {
-      if(err) {
-          return res.json({
-              code: 401,
-              msg: 'token无效'
-          })
-      } else {
-          data.uuid = uuid.v4();
-          data.u_id = decoded.u_id;
-          data.u_name = decoded.u_name;
-          data.type = req.body.type || type;
+    // data.content = req.body.content || (flag = false);
+    // @TODO 抽离成单元
+    jwt.verify(req.body.token, userKey, function(err, decoded) {
+        if (err) {
+            return res.json({
+                code: 401,
+                msg: 'token无效'
+            })
+        } else {
+            data.uuid = uuid.v4();
+            data.u_id = decoded.u_id;
+            data.u_name = decoded.u_name;
+            data.type = req.body.type || type;
 
-          data.token = jwt.sign({
-                  uuid: data.uuid,
-                  u_id: data.u_id
-              }, itemKey);
+            data.token = jwt.sign({
+                uuid: data.uuid,
+                u_id: data.u_id
+            }, itemKey);
 
-          console.log(data);
 
-          if(!flag) {
-              return res.json({sub: '填写正确的数据'});
-          } else {//判断数据重复性
-              db.query('INSERT INTO music SET ?', data, function(err, result) {
-                  if(err) {
-                      return res.json({
-                          code: 401,
-                          param: {
-                              msg:'写入数据库失败',
-                              sub: err,
-                              data: data
-                          }
-                      });
-                  } else {
-                      return res.json({
-                          code: 200,
-                          msg: '插入数据成功'
-                      });
-                  }
-              });
-          }
-      }
-  });
+            if (!flag) {
+                return res.json({
+                    sub: '填写正确的数据'
+                });
+            } else { //判断数据重复性
+                db.query('INSERT INTO music SET ?', data, function(err, result) {
+                    if (err) {
+                        return res.json({
+                            code: 401,
+                            param: {
+                                msg: '写入数据库失败',
+                                sub: err,
+                                data: data
+                            }
+                        });
+                    } else {
+                        return res.json({
+                            code: 200,
+                            msg: '插入数据成功'
+                        });
+                    }
+                });
+            }
+        }
+    });
 }
 
 //网易云音乐信息抓取
 function getNetMusicInfo(id) {
-  var apiUrl = 'http://music.163.com/api/song/detail?id='
-             + id + '&ids=[' + id + ']';
+    var apiUrl = 'http://music.163.com/api/song/detail?id=' + id + '&ids=[' + id + ']';
 
-  return new Promise(function(resolve, reject) {
-      request.get(apiUrl, function(err, res, body) {
-          if(err) {
-              reject(err);
-          } else {
-              resolve(body);
-          }
+    return new Promise(function(resolve, reject) {
+        request.get(apiUrl, function(err, res, body) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(body);
+            }
 
-      })
-  })
+        })
+    })
 }
 
 //商品信息抓取
 function getGoodsInfo(req, res, type, flag, data) {
 
-// phridge.spawn() creates a new PhantomJS process
-phridge.spawn()
-    .then(function (phantom) {
-        var url = data.url;
-        return phantom.openPage(url);
-    })
-    .then(function (page) {
-        return page.run(function () {
-            return this.evaluate(function (req, res, type, flag, data) {
-                return {
-                    price: document.querySelector("#J_PromoPriceNum").innerText,
-                    cover_img: document.querySelector("#J_ImgBooth").getAttribute('src'),
-                    title: document.title
-                }
+    // phridge.spawn() creates a new PhantomJS process
+    phridge.spawn()
+        .then(function(phantom) {
+            var url = data.url;
+            return phantom.openPage(url);
+        })
+        .then(function(page) {
+            return page.run(function() {
+                return this.evaluate(function(req, res, type, flag, data) {
+                    return {
+                        price: document.querySelector("#J_PromoPriceNum").innerText,
+                        cover_img: document.querySelector("#J_ImgBooth").getAttribute('src'),
+                        title: document.title
+                    }
+                });
             });
-        });
-    })
-    .then(function (_data) {
-        data.price = _data.price;
-        data.cover_img = _data.cover_img;
-        data.title = _data.title;
-        console.log(data);
-    })
-    .catch(function (err) {
-        console.error(err.stack);
-    })
+        })
+        .then(function(_data) {
+            data.price = _data.price;
+            data.cover_img = _data.cover_img;
+            data.title = _data.title;
+        })
+        .catch(function(err) {
+            console.error(err.stack);
+        })
 
     .then(phridge.disposeAll)
-    .then(function () {
-        say2DB(req, res, type, flag, data);
-    });
+        .then(function() {
+            say2DB(req, res, type, flag, data);
+        });
 
 }

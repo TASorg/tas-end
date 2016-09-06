@@ -13,6 +13,9 @@ router.post('/user/register', cors(), user.register);
 
 router.post('/user/login', cors(), user.login);
 
+router.post('/user/updatePwd', cors(), user.updatePwd);
+
+
 // 写入一张表
 router.post('/say/item', cors(), item.say);
 router.get('/read/item', cors(), item.read);
