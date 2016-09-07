@@ -98,7 +98,9 @@ exports.read = (req, res) => {
     jwt.verify(req.query.tk, userKey, function(err, decoded) {
         if (!err || (req.query.tk == 'null') || (!req.query.tk)) {
 
-            db.query('SELECT * FROM item ORDER BY rank, time DESC LIMIT ?, ?', [offset, pageSize], function(err, result) {
+            db.query('SELECT * FROM item ORDER BY rank DESC, time DESC LIMIT ?, ?'
+                , [offset, pageSize]
+                , function(err, result) {
 
                 if (err) {
                     res.json({
@@ -114,6 +116,13 @@ exports.read = (req, res) => {
                     }
                     for (i = 0; i < result.length; i++) {
                         (function(i) {
+
+
+                            // result[i].rank = getRank(result[i]);
+                            // console.log('--------------');
+                            // console.log(result[i].rank);
+
+
                             u_id_arr = result[i].up_id.split(',');
                             down_u_id_arr = result[i].down_id.split(',');
 
@@ -132,8 +141,10 @@ exports.read = (req, res) => {
                             }
 
                         })(i)
-
                     }
+                    // console.log(result)
+                    // var data = quickSort(result);
+                   
                     res.json({
                         code: 200,
                         msg: '读取数据成功',
@@ -150,6 +161,73 @@ exports.read = (req, res) => {
     });
 
 };
+
+// https://www.v2ex.com/t/304431#reply6
+function getRank(data) {
+    var t = new Date(data.time).getTime() - new Date('2015-03-12').getTime();
+    var x = data.up - data.down;
+    var y = x < 0 ? 1 : (x > 0 ? -1 : 0);
+    var z = x != 0 ? Math.abs(x) : 1;
+    var score = Math.log10(z) + y*t/45000;
+    return score;
+}
+
+// 快排
+
+// 交换两个的值
+function swap(data, firstIndex, secondIndex) {
+    var temp = data[firstIndex];
+    data[firstIndex] = data[secondIndex];
+    data[secondIndex] = temp;
+}
+
+function partition(data, left, right) {
+    var pivot = data[Math.floor((right + left) / 2)].rank;
+    var i = left;
+    var j = right;
+
+    while (i <= j) {
+        while (data[i].rank < pivot) {
+            i++;
+        }
+
+        while (data[j].rank > pivot) {
+            j--;
+        }
+
+        if (i <= j) {
+            swap(data, i, j);
+            i++;
+            j--;
+        }
+    }
+    return i;
+}
+
+function quickSort(data, left, right) {
+    if(data.length < 2) return data;
+
+    left = (typeof left !== 'number' ? 0 : left);
+    right = (typeof right !== 'number' ? data.length - 1 : right);
+
+    var index = partition(data, left, right);
+
+    if(left < index - 1) {
+        quickSort(data, left, index - 1);
+    }
+
+    if (index < right) {
+        quickSort(data, index, right);
+    }
+
+    // for(var k = 0; k < data.length; k++) {
+    //     console.log('00000000000000');
+    //     console.log(data[k].id);
+    //     console.log('00000000000000');
+    // }
+
+    return data;
+}
 
 // delete
 exports.delete = (req, res) => {
@@ -180,7 +258,9 @@ exports.delete = (req, res) => {
                 } else {
                     u_u_id = decoded.u_id;
                     if (i_u_id == u_u_id || decoded.u_name == 'admin') {
-                        db.query('DELETE FROM item WHERE uuid = ?', i_uuid, function(err, result) {
+                        db.query('DELETE FROM item WHERE uuid = ?'
+                            , i_uuid
+                            , function(err, result) {
 
                             if (err) {
                                 res.json({
@@ -242,7 +322,9 @@ exports.upVote = (req, res) => {
                 // 做性能测试，尽量两次查询转化为一次查询
                 // 或者转化为redis模式存储点赞逻辑
 
-                db.query('SELECT up_id, down_id FROM item WHERE uuid = ?', uuid, function(err, result) {
+                db.query('SELECT * FROM item WHERE uuid = ?'
+                    , uuid
+                    , function(err, result) {
                     if (err) {
                         res.json({
                             code: 401,
@@ -273,8 +355,12 @@ exports.upVote = (req, res) => {
                             uID = u_id;
                             old_u_id = result[0].up_id + ',';
                             u_id = old_u_id + u_id;
-                            console.log('0000---' + uID + 'dddddddd');
-                            db.query('UPDATE item SET up = up + 1, rank = rank + 0.01, up_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
+                            var rank = getRank(result[0]);
+                            console.log(rank);
+                            console.log('==================');
+                            db.query('UPDATE item SET up = up + 1, rank = ?, up_id = ? WHERE uuid = ?'
+                                , [rank, u_id, uuid]
+                                , function(err, result) {
                                 if (err) {
                                     res.json({
                                         code: 401,
@@ -368,7 +454,12 @@ exports.downVote = (req, res) => {
                         } else {
                             old_u_id = result[0].up_id + ',';
                             u_id = old_u_id + u_id;
-                            db.query('UPDATE item SET down = down + 1, down_id = ? WHERE uuid = ?', [u_id, uuid], function(err, result) {
+                            var rank = getRank(result[0]);
+                            console.log(rank);
+                            console.log('==================');
+                            db.query('UPDATE item SET down = down + 1, rank = ?, down_id = ? WHERE uuid = ?'
+                                , [rank, u_id, uuid]
+                                , function(err, result) {
                                 if (err) {
                                     res.json({
                                         code: 401,
@@ -378,9 +469,6 @@ exports.downVote = (req, res) => {
                                         }
                                     });
                                 } else {
-                                    console.log(row);
-                                    console.log(row);
-                                    console.log('00000000000');
                                     res.json({
                                         code: 200,
                                         msg: 'say NO成功',
@@ -403,7 +491,6 @@ exports.downVote = (req, res) => {
 function isDelItem() {
     
 }
-
 
 /**
  * 根据URL获取title
