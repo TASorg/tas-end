@@ -4,8 +4,8 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'root',
-  debug    : true,
-  database : 'Tas'
+  debug    : false,
+  database : 'tas'
 });
 
 export default connection;
